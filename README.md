@@ -1,8 +1,6 @@
 # SentinelAI Guardian - Enterprise Multi-Agent AI SOC
 
-<p align="center">
-  < alt="SentinelAI Guardian Banner" width="100%">
-</p>
+
 
 <p align="center">
   <img src="https://img.shields.io/badge/Platform-SentinelAI%20Guardian-00f0ff?style=for-the-badge&labelColor=0a0f1d" alt="Platform">
