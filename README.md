@@ -1,6 +1,6 @@
 # SentinelAI Guardian - Enterprise Multi-Agent AI SOC
 
-![SentinelAI Guardian Banner](./banner.png)
+![SentinelAI Guardian Banner](C:\Users\ADMIN\.gemini\antigravity\brain\b5a0beff-11fa-46aa-9d24-e93786af64c2\hackathon_banner_1783346760283.png)
 
 SentinelAI Guardian is an enterprise-grade Autonomous Multi-Agent Security Operations Center (SOC) orchestrator designed to predict, detect, and remediate cyber threats in real-time. By utilizing a collaborative swarm of specialized AI agents powered by the Google Gemini 1.5 Flash model, the platform automates complex alert synthesis, incident containment, vulnerability patching, and continuous regulatory compliance mapping.
 
