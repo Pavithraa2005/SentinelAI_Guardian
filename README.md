@@ -1,7 +1,7 @@
 # SentinelAI Guardian - Enterprise Multi-Agent AI SOC
 
 <p align="center">
-  <img src="./banner.png" alt="SentinelAI Guardian Banner" width="100%">
+  < alt="SentinelAI Guardian Banner" width="100%">
 </p>
 
 <p align="center">
