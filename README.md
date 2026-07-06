@@ -2,109 +2,132 @@
 
 ![SentinelAI Guardian Banner](./banner.png)
 
-SentinelAI Guardian is an enterprise-grade **multi-agent AI Security Operations Center (SOC)** designed to predict, protect, and respond to cyber threats in real-time. Powered by a collaborative swarm of autonomous AI agents (leveraging **Google Gemini 1.5 Flash**), the platform automates real-time incident analysis, containment scripting, vulnerability management, and regulatory compliance mapping.
+SentinelAI Guardian is an enterprise-grade Autonomous Multi-Agent Security Operations Center (SOC) orchestrator designed to predict, detect, and remediate cyber threats in real-time. By utilizing a collaborative swarm of specialized AI agents powered by the Google Gemini 1.5 Flash model, the platform automates complex alert synthesis, incident containment, vulnerability patching, and continuous regulatory compliance mapping.
 
 ---
 
-## ✨ Features
+## Core Capabilities
 
-- **🤖 Multi-Agent AI Orchestration:** Multiple specialized agents monitor different aspects of security:
-  - **Threat Hunt Agent:** Formulates and runs query hypotheses against internal databases and logs.
-  - **Deception & Honeypot Agent:** Traps threats using Canary tokens, decoy credentials, and honeypot alerts.
-  - **API Security Agent:** Discovers shadow APIs and monitors for malicious request payloads (e.g., SQL Injection, XSS).
-  - **Cloud Posture Agent:** Evaluates GCP/AWS configurations for misconfigured IAM rules or exposed resources.
-  - **Dark Web Monitor Agent:** Monitors repositories and pasteboards for typosquatted domains or configuration leaks.
-- **⚡ AI Incident Explanation & Playbooks:** Raw alert data is analyzed by Gemini to generate detailed threat narratives, potential business impact, and step-by-step mitigation playbooks.
-- **🛡️ Vulnerability Lifecycle Management:** Automatically ranks discovered CVEs by CVSS scores, tracks patch application status, and implements one-click resolutions.
-- **📊 Dynamic Compliance Auditor:** Monitors system checks against **ISO 27001**, **SOC 2**, **NIST**, and **HIPAA** compliance guidelines. Dynamically generates reports and lists actionable compliance gaps.
-- **💬 Conversational SOC Copilot:** Interactive security assistant chat interface capable of scanning the active threat environment and providing system diagnostics.
+### 1. Collaborative Multi-Agent Orchestration
+SentinelAI Guardian deploys decentralized, specialized AI agents monitoring distinct attack surfaces:
+*   **Threat Hunt Agent:** Executes proactive, hypothesis-driven database and system log audits to detect lateral movement.
+*   **Deception and Honeypot Agent:** Controls Canary tokens and decoy assets, trapping and alerting on early-stage intrusion indicators.
+*   **API Security Agent:** Discovers shadow API endpoints and inspects incoming payloads for injection vulnerabilities (SQLi, XSS).
+*   **Cloud Posture Agent (CSPM):** Audits cloud configurations (GCP/AWS/Azure) against identity policies and public resource exposures.
+*   **Dark Web Monitor Agent:** Continuously scans repositories and pasteboards for leaked keys or configuration files.
+
+### 2. Intelligent Threat Synthesis and Playbooks
+Translates raw, high-volume telemetry and system logs into structured incident files. Utilizing Gemini, the platform dynamically generates:
+*   **Attack Vector Analysis:** Human-readable explanations of execution paths.
+*   **Business Impact Assessment:** Financial, operational, and reputational risk analysis.
+*   **Actionable Mitigation Checklists:** Step-by-step containment playbooks and command-line scripts.
+
+### 3. Vulnerability Lifecycle Management
+Integrates a continuous scanner that detects, analyzes, and lists CVEs. Vulnerabilities are automatically indexed by CVSS severity and can be resolved immediately via virtual, one-click patch deployments.
+
+### 4. Continuous Compliance Auditing
+Performs automated configuration mapping against major regulatory frameworks including ISO 27001, SOC 2, NIST, and HIPAA. Dynamically flags gaps and provides evidence reports for external audits.
 
 ---
 
-## 🛠️ Technology Stack
-
-- **Frontend:** Next.js 15, React 19, TypeScript, Tailwind CSS, Lucide Icons, Recharts.
-- **Backend:** FastAPI (Python), SQLAlchemy ORM, SQLite database.
-- **AI Core:** Google Gemini 1.5 Flash API (via `google-generativeai`).
-
----
-
-## 📁 Repository Structure
+## System Architecture and Tech Stack
 
 ```text
-├── backend/               # FastAPI Server, SQLAlchemy Database, Agent Engine
-│   ├── main.py            # API Routes and Core Logic
-│   ├── database.py        # Database models (Alerts, Vulns, Compliance)
-│   ├── auth.py            # JWT Authentication & Password hashing
-│   └── agents_engine.py   # Gemini AI Agent logic & simulation functions
+               ┌──────────────────────────────┐
+               │    Next.js 15 React Portal   │
+               └──────────────┬───────────────┘
+                              │ HTTPS / JSON
+                              ▼
+               ┌──────────────────────────────┐
+               │     FastAPI Backend API      │
+               └──────┬────────────────┬──────┘
+                      │                │
+                      ▼                ▼
+        ┌─────────────┴──────┐  ┌──────┴─────────────┐
+        │  SQLite Database   │  │   Gemini 1.5 API   │
+        │ (SQLAlchemy ORM)   │  │ (Agent Reasoning)  │
+        └────────────────────┘  └────────────────────┘
+```
+
+*   **Frontend:** Next.js 15, React 19, TypeScript, Tailwind CSS, Recharts.
+*   **Backend:** FastAPI (Python), SQLAlchemy ORM, SQLite.
+*   **AI Integration:** Google Gemini 1.5 Flash SDK (google-generativeai) for high-throughput reasoning.
+
+---
+
+## Repository Structure
+
+```text
+├── backend/               # FastAPI Server & Database Engine
+│   ├── main.py            # API controller and endpoint routes
+│   ├── database.py        # Schema definitions and database initialization
+│   ├── auth.py            # Cryptographic utilities and JWT authentication
+│   └── agents_engine.py   # AI agent orchestration and LLM integrations
 │
-├── frontend/              # Next.js Web Portal
-│   ├── src/app/           # Next.js pages (dashboard, threats, assistant, etc.)
-│   └── public/            # Static assets and icons
+├── frontend/              # Next.js Application
+│   ├── src/app/           # Component layouts and page views
+│   └── public/            # Core visual assets and styling definitions
 ```
 
 ---
 
-## 🚀 Getting Started
+## Setup and Installation
 
 ### Prerequisites
+*   Python 3.10 or higher
+*   Node.js 18 or higher
+*   Google Gemini API Key (Get an API Key at Google AI Studio)
 
-- **Python 3.10+**
-- **Node.js 18+**
-- **Google Gemini API Key** (Get one at [Google AI Studio](https://aistudio.google.com/))
+### 1. Backend Service Configuration
+1.  Navigate to the backend directory:
+    ```bash
+    cd backend
+    ```
+2.  Initialize and activate the Python virtual environment:
+    ```bash
+    python -m venv venv
+    # Windows:
+    .\venv\Scripts\activate
+    # Linux / macOS:
+    source venv/bin/activate
+    ```
+3.  Install dependencies:
+    ```bash
+    pip install -r requirements.txt
+    ```
+4.  Run the API server:
+    ```bash
+    python main.py
+    ```
+    *The API gateway will start locally at http://127.0.0.1:8000.*
 
-### 1. Set Up the Backend
-
-1. Navigate to the `backend` folder:
-   ```bash
-   cd backend
-   ```
-2. Create and activate a virtual environment:
-   ```bash
-   python -m venv venv
-   # On Windows:
-   .\venv\Scripts\activate
-   # On Linux/macOS:
-   source venv/bin/activate
-   ```
-3. Install dependencies:
-   ```bash
-   pip install -r requirements.txt
-   ```
-4. Start the FastAPI server:
-   ```bash
-   python main.py
-   ```
-   The backend will run at `http://127.0.0.1:8000`.
-
-### 2. Set Up the Frontend
-
-1. Navigate to the `frontend` folder:
-   ```bash
-   cd frontend
-   ```
-2. Install npm dependencies:
-   ```bash
-   npm install
-   ```
-3. Run the development server:
-   ```bash
-   npm run dev
-   ```
-   Open `http://localhost:3000` in your browser to view the application.
+### 2. Frontend Portal Configuration
+1.  Navigate to the frontend directory:
+    ```bash
+    cd ../frontend
+    ```
+2.  Install dependencies:
+    ```bash
+    npm install
+    ```
+3.  Start the development server:
+    ```bash
+    npm run dev
+    ```
+    *The web portal will be accessible at http://localhost:3000.*
 
 ---
 
-## ⚙️ Configuration & API Integration
+## Configuration and Key Management
 
-Once running:
-1. Log in or Register a new analyst account in the SentinelAI Guardian portal.
-2. Go to the **Settings** tab.
-3. Paste your **Gemini API Key** in the API Key input and click save.
-   *Note: If no API key is specified, the application automatically falls back to static high-fidelity response mockups so the system remains fully interactive.*
+To enable full AI analytics and agent decision-making:
+1.  Log in to the SentinelAI Guardian portal.
+2.  Navigate to Settings in the dashboard.
+3.  Enter your Gemini API Key and click Save. 
+
+*Note: The platform features high-fidelity offline fallback scripts. If no API key is active, agent responses and alert containment playbooks will remain fully functional via pre-defined template configurations.*
 
 ---
 
-## 🔒 License
-
-This project is licensed under the MIT License. See [LICENSE](LICENSE) for details.
+## License
+This project is released under the MIT License. For details, please consult LICENSE.
