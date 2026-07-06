@@ -1,36 +1,24 @@
 # SentinelAI Guardian - Enterprise Multi-Agent AI SOC
 
-![SentinelAI Guardian Banner](C:\Users\ADMIN\.gemini\antigravity\brain\b5a0beff-11fa-46aa-9d24-e93786af64c2\hackathon_banner_1783346760283.png)
+<p align="center">
+  <img src="./banner.png" alt="SentinelAI Guardian Banner" width="100%">
+</p>
+
+<p align="center">
+  <img src="https://img.shields.io/badge/Platform-SentinelAI%20Guardian-00f0ff?style=for-the-badge&labelColor=0a0f1d" alt="Platform">
+  <img src="https://img.shields.io/badge/Security-Multi--Agent%20Orchestrator-0052ff?style=for-the-badge&labelColor=0a0f1d" alt="Security">
+  <img src="https://img.shields.io/badge/AI-Gemini%201.5%20Flash-00a2ff?style=for-the-badge&labelColor=0a0f1d" alt="AI">
+</p>
+
+---
 
 SentinelAI Guardian is an enterprise-grade Autonomous Multi-Agent Security Operations Center (SOC) orchestrator designed to predict, detect, and remediate cyber threats in real-time. By utilizing a collaborative swarm of specialized AI agents powered by the Google Gemini 1.5 Flash model, the platform automates complex alert synthesis, incident containment, vulnerability patching, and continuous regulatory compliance mapping.
 
 ---
 
-## Core Capabilities
+## 1. Executive Summary and Architecture
 
-### 1. Collaborative Multi-Agent Orchestration
-SentinelAI Guardian deploys decentralized, specialized AI agents monitoring distinct attack surfaces:
-*   **Threat Hunt Agent:** Executes proactive, hypothesis-driven database and system log audits to detect lateral movement.
-*   **Deception and Honeypot Agent:** Controls Canary tokens and decoy assets, trapping and alerting on early-stage intrusion indicators.
-*   **API Security Agent:** Discovers shadow API endpoints and inspects incoming payloads for injection vulnerabilities (SQLi, XSS).
-*   **Cloud Posture Agent (CSPM):** Audits cloud configurations (GCP/AWS/Azure) against identity policies and public resource exposures.
-*   **Dark Web Monitor Agent:** Continuously scans repositories and pasteboards for leaked keys or configuration files.
-
-### 2. Intelligent Threat Synthesis and Playbooks
-Translates raw, high-volume telemetry and system logs into structured incident files. Utilizing Gemini, the platform dynamically generates:
-*   **Attack Vector Analysis:** Human-readable explanations of execution paths.
-*   **Business Impact Assessment:** Financial, operational, and reputational risk analysis.
-*   **Actionable Mitigation Checklists:** Step-by-step containment playbooks and command-line scripts.
-
-### 3. Vulnerability Lifecycle Management
-Integrates a continuous scanner that detects, analyzes, and lists CVEs. Vulnerabilities are automatically indexed by CVSS severity and can be resolved immediately via virtual, one-click patch deployments.
-
-### 4. Continuous Compliance Auditing
-Performs automated configuration mapping against major regulatory frameworks including ISO 27001, SOC 2, NIST, and HIPAA. Dynamically flags gaps and provides evidence reports for external audits.
-
----
-
-## System Architecture and Tech Stack
+Modern security operations centers struggle with alert fatigue, complex cloud infrastructures, and shadow API exposures. SentinelAI Guardian addresses these challenges by replacing static rule-based alert systems with a dynamic swarm of specialized AI security agents. These agents analyze real-time system logs, perform targeted queries, and produce rich, context-aware threat summaries.
 
 ```text
                ┌──────────────────────────────┐
@@ -49,13 +37,98 @@ Performs automated configuration mapping against major regulatory frameworks inc
         └────────────────────┘  └────────────────────┘
 ```
 
-*   **Frontend:** Next.js 15, React 19, TypeScript, Tailwind CSS, Recharts.
-*   **Backend:** FastAPI (Python), SQLAlchemy ORM, SQLite.
-*   **AI Integration:** Google Gemini 1.5 Flash SDK (google-generativeai) for high-throughput reasoning.
+The system separates concerns across three primary tiers:
+*   **Intelligence Tier:** Powered by Google Gemini 1.5 Flash, providing deep contextual logic to analyze anomalies, map compliance regulations, and answer analyst queries.
+*   **Orchestration Tier:** A FastAPI-based backend exposing RESTful APIs, managing task workers, simulating threat behaviors, and tracking database records via SQLAlchemy.
+*   **Presentation Tier:** An interactive Next.js dashboard that visualizes network metrics, active alerts, compliance gap analyses, and live chat assistance.
 
 ---
 
-## Repository Structure
+## 2. Multi-Agent Swarm Deep Dive
+
+Rather than relying on a single monolith, the platform leverages five independent, specialized security agents. Each agent acts on distinct logs and telemetry:
+
+### Threat Hunt Agent
+*   **Objective:** Identify unauthorized access patterns and lateral movements inside database and application layers.
+*   **Telemetry Input:** Query history, database transactions, database access counts, and time-series query volumes.
+*   **Actionable Output:** Highlights anomalies in query frequency or execution times, exposing potential data extraction attempts.
+
+### Deception and Honeypot Agent
+*   **Objective:** Catch and analyze early-stage external threats via decoy assets.
+*   **Telemetry Input:** Canary token logs, fake credential access logs, and connections to restricted sandbox subnets.
+*   **Actionable Output:** Traces the attacker's source IP, geo-location, and attempted system queries.
+
+### API Security Agent
+*   **Objective:** Discover unregistered (shadow) APIs and intercept web attacks.
+*   **Telemetry Input:** HTTP request paths, query parameters, authorization headers, and input payloads.
+*   **Actionable Output:** Identifies patterns indicating SQL injection, Cross-Site Scripting (XSS), or credential stuffing.
+
+### Cloud Posture Agent
+*   **Objective:** Enforce Cloud Security Posture Management (CSPM) guidelines.
+*   **Telemetry Input:** IAM policies, public storage bucket configurations, and cloud network security groups (AWS, GCP, Azure).
+*   **Actionable Output:** Flags misconfigured policies, insecure default settings, or overly permissive developer configurations.
+
+### Dark Web Monitor Agent
+*   **Objective:** Discover external brand exposure and data leaks.
+*   **Telemetry Input:** Code sharing platforms, public pasteboards, and dark web indexes.
+*   **Actionable Output:** Flags leaked credentials, configuration keys, or exposed code directories mentioning internal domains.
+
+---
+
+## 3. Core System Modules
+
+### AI Threat Analysis and Explanation
+When telemetry triggers an alert, the raw log is formatted and passed to the Gemini engine with precise system instructions. The LLM processes the input and returns a structured markdown analysis details:
+1.  **Attack Narrative:** A human-readable walkthrough of the compromised system, the execution vectors, and how the attacker bypassed initial defenses.
+2.  **Business Risk Assessment:** Classification of risks based on potential financial loss, service downtime, or regulatory violations.
+3.  **Remediation Steps:** Containment scripts (Bash and PowerShell) to quickly terminate malicious processes or adjust firewall rules.
+
+### Vulnerability Management Lifecycle
+The portal lists active system vulnerabilities extracted from continuous infrastructure scans:
+*   **Severity Mapping:** Tracks CVE designations and CVSS scores to prioritize patching workflows.
+*   **Status Tracking:** Classifies items as active, in-progress, or patched.
+*   **One-Click Patching:** Simulates virtual patching to remediate vulnerable configurations or packages, updating the system state in the central database.
+
+### Continuous Compliance Auditor
+The compliance module conducts regular audits against industry regulations (ISO 27001, SOC 2, NIST, HIPAA):
+*   **Postures and Controls:** Verifies configurations against defined compliance checklists.
+*   **Remediation Mapping:** Details gaps, evidence required, and corresponding steps to resolve compliance gaps.
+*   **Report Generation:** Generates instant audit readiness scores and exports structured compliance status reports.
+
+---
+
+## 4. API Reference Guide
+
+### Authentication
+*   `POST /api/auth/register` - Registers a new analyst with credentials.
+*   `POST /api/auth/login` - Validates credentials and returns a JWT access token.
+*   `GET /api/auth/me` - Validates token integrity and returns the active user session.
+
+### Security Alerts and Simulations
+*   `GET /api/alerts` - Returns list of active threat incidents, filterable by status and category.
+*   `GET /api/alerts/{id}` - Fetches detail for a specific alert, triggering Gemini to explain the threat if not already parsed.
+*   `POST /api/alerts/{id}/action` - Executes mitigation playbooks (actions include isolate, quarantine, patch, ignore, resolve).
+*   `POST /api/alerts/simulate` - Simulates a randomized threat (network data exfiltration, honeypot access, API SQL injection, public pasteboard credential leak).
+
+### Vulnerabilities
+*   `GET /api/vulnerabilities` - Lists system vulnerabilities ordered by CVSS severity.
+*   `POST /api/vulnerabilities/{id}/patch` - Applies a virtual patch, updating vulnerability status to resolved.
+
+### Compliance
+*   `GET /api/compliance` - Lists all compliance controls and audit checklist items.
+*   `POST /api/compliance/report` - Calculates compliance statistics, highlighting specific gaps and remediation details.
+
+### AI Assistant & Custom Agent Modules
+*   `POST /api/assistant/chat` - Submits a prompt to the conversational assistant along with historical messages.
+*   `POST /api/agents/threat-hunt` - Triggers a custom AI agent execution analyzing a specific threat hypothesis.
+*   `GET /api/agents/cloud-posture` - Pulls real-time cloud environment posture audit reports.
+*   `GET /api/agents/api-security` - Returns shadow API exposures and payload analysis logs.
+*   `GET /api/agents/dark-web` - Searches pasteboards and returns recent corporate brand mentions.
+*   `GET /api/agents/deception` - Details honeytoken interactions and decoys currently under attack.
+
+---
+
+## 5. Repository Structure
 
 ```text
 ├── backend/               # FastAPI Server & Database Engine
@@ -71,7 +144,7 @@ Performs automated configuration mapping against major regulatory frameworks inc
 
 ---
 
-## Setup and Installation
+## 6. Setup and Installation
 
 ### Prerequisites
 *   Python 3.10 or higher
@@ -118,7 +191,7 @@ Performs automated configuration mapping against major regulatory frameworks inc
 
 ---
 
-## Configuration and Key Management
+## 7. Configuration and Key Management
 
 To enable full AI analytics and agent decision-making:
 1.  Log in to the SentinelAI Guardian portal.
@@ -129,5 +202,5 @@ To enable full AI analytics and agent decision-making:
 
 ---
 
-## License
+## 8. License
 This project is released under the MIT License. For details, please consult LICENSE.
